@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Подписки {{ author.get_full_name }}{% endblock %}
+{% block header %}Подписки {{ author.get_full_name }}{% endblock %}
+{% block content %}    
+    {% for follow in page %}
+    <p>
+    <h3>
+        {{ forloop.counter }} <a href="{% url 'profile' username=follow.author.username %}">{{ follow.author.get_full_name }}</a> 
+    </h3>
+    </p>
+ 
+    <hr>
+    {% endfor %}
+    {% if page.has_other_pages %}
+        {% include "includes/paginator.html" with items=page paginator=paginator %}
+    {% endif %}
+
+{% endblock %}

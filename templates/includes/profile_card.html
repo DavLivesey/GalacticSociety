@@ -1,0 +1,60 @@
+{% load thumbnail %}
+<div class="row">
+    <div class="col-md-3 mb-3 mt-1">
+            <div class="card">
+                    <div class="card-body">
+                            <div class="card mb-3 mt-1 shadow-sm">                                
+                                {% if profile.image != None %}
+                                {% thumbnail profile.image "1100x952" crop="center" upscale=True as im %} 
+                                    <img class="card-img" src="{{ im.url }}">
+                                {% endthumbnail %}
+                                {% else %}
+                                    <img class="card-img" src="https://yt3.ggpht.com/a/AATXAJwueNabtLSns_cT6yanCdW10b7e1UBD9od-JPM9Iw=s900-c-k-c0xffffffff-no-rj-mo">
+                                
+                                {% endif %}
+                                
+                        </div> 
+                        <div class="h3 text-muted">
+                                {{ author.username }}                                        
+                           </div>
+                        <div class="card-body">
+                                {{ profile.text }}
+                        </div>
+                    </div>
+                    
+                    <ul class="list-group list-group-flush" >
+                            {% if user.is_authenticated %}
+                            {% if author.username == user.username %}
+                            <a class="btn text-muted" href="{% url 'profile_edit' username=author.username%}" role="button"> Редактировать профиль </a>
+                        <li class="list-group-item" >
+                                {% endif %}
+                            {% if author.username != user.username %}
+                            
+                                {% if following %}
+                                <a class="btn btn-lg btn-light" 
+                                        href="{% url 'profile_unfollow' username=author.username %}" role="button"> 
+                                        Отписаться 
+                                </a> 
+                                {% else %}
+                                <a class="btn btn-lg btn-primary" 
+                                        href="{% url 'profile_follow' username=author.username %}" role="button">
+                                Подписаться 
+                                </a>
+                                {% endif %}
+                                {% endif %}
+                                {% endif %}
+                            </li>
+                            <li class="list-group-item">
+                                    <div class="h6 text-muted">
+                                    <a href="{% url 'following_view' username=author.username %}" role="button">Подписчиков: {{ author.following.count }}</a>  <br />
+                                    <a href="{% url 'follower_view' username=author.username %}" role="button">Подписан: {{ author.follower.count }}</a>
+                                    </div>
+                            </li>
+                            <li class="list-group-item">
+                                    <div class="h6 text-muted">
+                                       Количество публикаций: {{ author.posts.count }}                                                
+                                    </div>
+                            </li>
+                    </ul>
+            </div>
+    </div>

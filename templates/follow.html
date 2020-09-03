@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Публикации, на которые Вы подписаны{% endblock %}
+{% block header %}<strong class="d-block text-gray-dark text-center">Ваши подписки</strong>{% endblock %}
+{% block content %}
+{% load cache %}    
+    
+    {% include "includes/menu.html" %} 
+    {% if follow %}
+    {% cache 20 follow_page %}  
+     
+    {% for post in page %}
+    {% include "includes/post_item.html" with post=post %}    
+    {% endfor %} 
+    {% endcache %}
+    {% else %}      
+    <strong class="d-block text-gray-dark text-center"><span style="color:red">У Вас ещё нет подписок</strong>  
+    {% endif %}         
+    {% if page.has_other_pages %}
+        {% include "includes/paginator.html" with items=page paginator=paginator %}
+    {% endif %}
+{% endblock %}

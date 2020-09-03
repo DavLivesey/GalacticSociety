@@ -1,2 +1,1 @@
-# GalacticSociety
-Space theme social network
+# hw05_final

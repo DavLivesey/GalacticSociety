@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %} Профиль {{ author.get_full_name }}{% endblock %}
+{% block header %} <h2 style="text-align: center; color:yellow;">Публикации {{ author.get_full_name }}</h2>{% endblock %}
+{% block content %}
+{% load thumbnail %}
+
+                {% include "includes/profile_card.html" %}
+
+            <div class="col-md-9">                
+                {% if user.is_authenticated %}
+                {% else %}
+                         <strong class="d-block text-center" style="color: red">Чтобы просмотреть публикации полностью, войдите или зарегистрируйтесь</strong></a>
+                {% endif %}
+                {% for post in page %}
+                {% if post.count == 0 %}
+                <p style="color: purple"> У данного автора еще нет ни одной публикации</p>
+                {% else %}
+{% include "includes/post_item.html" with post=post %}
+                {% endif %}
+                {% endfor %}
+                <!-- Здесь постраничная навигация паджинатора -->
+                {% if page.has_other_pages %}
+                {% include "includes/paginator.html" with items=page paginator=paginator %}
+                {% endif %}
+     </div>
+    </div>
+</main>
+{% endblock %}

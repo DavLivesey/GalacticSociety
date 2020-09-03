@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Последние обновления на сайте{% endblock %}
+{% block header %}<strong class="d-block text-gray-dark text-center">Последние обновления:</strong>{% endblock %}
+{% block content %}
+<body>
+{% load cache %}    
+    {% if user.is_authenticated %}    
+    {% else %}
+    <strong class="d-block text-gray-dark text-center">
+        <span style="color:red; font-style: italic; font-size: 20px;">Чтобы просматривать публикации, зарегистрируйтесь или войдите в аккаунт</strong></strong>
+    {% endif %}    
+    <div class="container">
+    {% include "includes/menu.html" %}
+    {% cache 20 index_page %}
+    {% for post in page %}
+    {% include "includes/post_item.html" with post=post %}
+    {% endfor %}
+    </div>
+    {% endcache %}
+    {% if page.has_other_pages %}
+        {% include "includes/paginator.html" with items=page paginator=paginator %}
+    {% endif %}
+</body>
+{% endblock %}

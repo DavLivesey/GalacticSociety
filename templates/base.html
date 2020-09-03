@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image" href="https://i.ytimg.com/vi/GEZrYWm9XpA/maxresdefault.jpg">
+    <title>{% block title %}The Last Social Media You'll Ever Need{% endblock %} | Yatube</title>
+    <!-- Загрузка статики -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+</head>
+<body style="background-image: url(https://ak.picdn.net/shutterstock/videos/13381670/thumb/4.jpg)">
+    {% include "includes/nav.html" %}
+    <main>
+        <div class="container">
+            <h1 style="color:yellow">{% block header %}{% endblock %}</h1>
+            {% block content %}            
+            {% endblock %}
+        </div>
+    </main>
+    {% include "includes/footer.html" %}
+</body>
+
+</html>
